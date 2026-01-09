@@ -42,6 +42,8 @@
             max-width: 480px;
             width: 90%;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 10;
         }
 
         h1 {
@@ -365,6 +367,35 @@
                 transform: translateY(0);
             }
         }
+
+        /* RAIN ANIMATION */
+        .rain-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .omega-flake {
+            position: absolute;
+            top: -50px;
+            color: #fff;
+            font-family: sans-serif;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4);
+            animation: fall linear forwards;
+            user-select: none;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
     </style>
 </head>
 
@@ -605,6 +636,40 @@ Sign to authenticate connection.`;
                 document.getElementById('copyStatus').innerText = "❌ Capture failed.";
             }
         }
+
+        // --- RAIN LOGIC ---
+        function startRain() {
+            const container = document.createElement('div');
+            container.className = 'rain-container';
+            document.body.prepend(container);
+
+            setInterval(() => {
+                const flake = document.createElement('div');
+                flake.className = 'omega-flake';
+                flake.innerText = 'Ω';
+
+                // Random properties
+                const left = Math.random() * 100;
+                const duration = Math.random() * 3 + 2; // 2s to 5s
+                const size = Math.random() * 20 + 10; // 10px to 30px
+                const opacity = Math.random() * 0.5 + 0.1; // 0.1 to 0.6
+
+                flake.style.left = `${left}vw`;
+                flake.style.animationDuration = `${duration}s`;
+                flake.style.fontSize = `${size}px`;
+                flake.style.opacity = opacity;
+
+                container.appendChild(flake);
+
+                // Cleanup
+                setTimeout(() => {
+                    flake.remove();
+                }, duration * 1000 + 100);
+            }, 100); // New flake every 100ms
+        }
+
+        // Start animation on load
+        window.addEventListener('load', startRain);
     </script>
 </body>
 
