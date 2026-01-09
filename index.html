@@ -396,6 +396,42 @@
                 transform: translateY(110vh) rotate(360deg);
             }
         }
+
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 600px) {
+            .pnl-wrapper {
+                transform: scale(0.9);
+                margin: 0;
+            }
+
+            .pnl-container {
+                width: 100%;
+                /* Reset fixed width */
+                max-width: 100%;
+                padding: 20px;
+            }
+
+            .roi-value {
+                font-size: 42px;
+            }
+
+            .pair-name {
+                font-size: 18px;
+            }
+
+            .side-badge {
+                font-size: 14px;
+                padding: 6px 10px;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            .watermark {
+                font-size: 60px;
+            }
+        }
     </style>
 </head>
 
